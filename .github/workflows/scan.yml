@@ -1,0 +1,54 @@
+name: scan
+
+on:
+  schedule:
+    - cron: "17 */4 * * *"   # every 4 hours (UTC)
+  workflow_dispatch:           # "Run workflow" button in the Actions tab
+
+permissions:
+  contents: write              # commit the engine's state files
+  pages: write
+  id-token: write
+
+concurrency:
+  group: scan
+  cancel-in-progress: false
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install
+        run: pip install -r requirements.txt
+
+      - name: Scan markets, score, paper trade
+        run: python engine.py --data data
+
+      - name: Save state to the repo
+        run: |
+          git config user.name "edge-desk-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          mkdir -p data && touch data/.keep
+          git add data
+          git commit -m "scan $(date -u +%Y-%m-%dT%H:%MZ)" || echo "nothing to commit"
+          git push
+
+      - name: Build site
+        run: python build_site.py
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deploy
+        uses: actions/deploy-pages@v4
