@@ -1,0 +1,456 @@
+<title>Edge Desk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#EEF1F4; --panel:#FFFFFF; --ink:#132029; --ink-2:#4A5A66; --ink-3:#7C8A95;
+  --line:#D6DDE3; --line-2:#E6EBEF; --accent:#C9540F; --accent-soft:#FBE7D9;
+  --market:#9AA8B3; --model:#C9540F; --good:#1F7A4D; --good-soft:#DDF1E6;
+  --bad:#B3322B; --bad-soft:#F8E0DE; --warn:#946200; --warn-soft:#FBF0D2;
+  --chip:#E9EEF2; --shadow:0 1px 2px rgba(19,32,41,.06),0 4px 14px rgba(19,32,41,.05);
+  --f-sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-cond:"IBM Plex Sans Condensed","Arial Narrow",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0E151B; --panel:#162029; --ink:#E6EDF2; --ink-2:#A9B7C2; --ink-3:#7A8A96;
+    --line:#26333E; --line-2:#1E2A33; --accent:#F08A45; --accent-soft:#3A2517;
+    --market:#5E6E7A; --model:#F08A45; --good:#4CC38A; --good-soft:#15301F;
+    --bad:#F07068; --bad-soft:#3A1D1B; --warn:#E3B341; --warn-soft:#352A10;
+    --chip:#1F2B35; --shadow:none;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0E151B; --panel:#162029; --ink:#E6EDF2; --ink-2:#A9B7C2; --ink-3:#7A8A96;
+  --line:#26333E; --line-2:#1E2A33; --accent:#F08A45; --accent-soft:#3A2517;
+  --market:#5E6E7A; --model:#F08A45; --good:#4CC38A; --good-soft:#15301F;
+  --bad:#F07068; --bad-soft:#3A1D1B; --warn:#E3B341; --warn-soft:#352A10;
+  --chip:#1F2B35; --shadow:none;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:14px/1.45 var(--f-sans);margin:0}
+.wrap{max-width:720px;margin:0 auto;padding-inline:16px;padding-block:0 96px}
+.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+
+/* top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:14px 10px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.brand h1{font:700 21px/1 var(--f-cond);letter-spacing:.01em;margin:0;text-wrap:balance}
+.brand h1 span{color:var(--accent)}
+.stamp{font:500 11px/1.3 var(--f-mono);color:var(--ink-3);text-align:right}
+.stamp.stale{color:var(--warn)}
+.banner{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;gap:6px;font:600 11px/1 var(--f-cond);letter-spacing:.06em;text-transform:uppercase;padding:6px 9px;border-radius:999px;background:var(--chip);color:var(--ink-2)}
+.pill.paper{background:var(--warn-soft);color:var(--warn)}
+.pill .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+
+/* tabs: bottom bar on phones */
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--panel);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);padding-bottom:env(safe-area-inset-bottom,0px)}
+.tabs button{border:0;background:none;padding:10px 4px 12px;font:600 12px/1.1 var(--f-cond);letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px}
+.tabs button svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.7}
+.tabs button[aria-selected="true"]{color:var(--accent)}
+.view{padding-top:16px}
+.sect{font:600 12px/1 var(--f-cond);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin:22px 0 10px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.lede{color:var(--ink-2);margin:0 0 12px;max-width:62ch}
+
+/* controls */
+.controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.seg{display:inline-flex;background:var(--chip);border-radius:10px;padding:3px}
+.seg button{border:0;background:none;padding:7px 11px;border-radius:8px;font:600 12px/1 var(--f-cond);letter-spacing:.04em;color:var(--ink-2);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--panel);color:var(--ink);box-shadow:var(--shadow)}
+.bank{display:inline-flex;align-items:center;gap:6px;margin-left:auto;font:500 12px var(--f-cond);color:var(--ink-2);letter-spacing:.03em;text-transform:uppercase}
+.bank input{width:70px;padding:7px 8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink);font:500 13px var(--f-mono)}
+
+/* idea cards */
+.list{display:grid;gap:10px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+.card-h{display:grid;grid-template-columns:1fr auto;gap:10px;padding:14px 14px 10px;cursor:pointer;border:0;background:none;text-align:left;width:100%}
+.ev{font:600 11px/1.2 var(--f-cond);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.bet{font:600 17px/1.25 var(--f-sans);margin:4px 0 0;text-wrap:balance}
+.bet .side{font:700 12px/1 var(--f-cond);letter-spacing:.06em;padding:4px 7px;border-radius:6px;margin-right:6px;vertical-align:2px}
+.side.YES{background:var(--good-soft);color:var(--good)}
+.side.NO{background:var(--bad-soft);color:var(--bad)}
+.edgebox{text-align:right}
+.edge{font:600 22px/1 var(--f-mono);color:var(--accent)}
+.edge small{font-size:12px}
+.edgelab{font:500 10px/1.2 var(--f-cond);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-top:4px}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line-2)}
+.metrics div{padding:9px 10px;border-right:1px solid var(--line-2)}
+.metrics div:last-child{border-right:0}
+.metrics dt{font:500 10px/1.2 var(--f-cond);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)}
+.metrics dd{margin:3px 0 0;font:500 14px/1.2 var(--f-mono);font-variant-numeric:tabular-nums}
+.conf{display:flex;align-items:center;gap:6px}
+.meter{flex:1;height:5px;border-radius:3px;background:var(--line-2);overflow:hidden;min-width:24px}
+.meter i{display:block;height:100%;background:var(--ink-2)}
+.tags{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 12px}
+.tag{font:500 11px/1 var(--f-cond);letter-spacing:.03em;padding:5px 8px;border-radius:6px;background:var(--chip);color:var(--ink-2)}
+.tag.ok{background:var(--good-soft);color:var(--good)}
+.tag.no{background:var(--bad-soft);color:var(--bad)}
+.detail{border-top:1px solid var(--line-2);padding:12px 14px 14px;display:grid;gap:12px}
+.why{margin:0;color:var(--ink-2);max-width:65ch}
+.dist{display:grid;gap:4px}
+.dist-row{display:grid;grid-template-columns:78px 1fr 44px;align-items:center;gap:8px;font:500 12px/1 var(--f-mono)}
+.dist-row.hl{font-weight:600}
+.dist-row.hl .lab{color:var(--accent)}
+.bars{position:relative;height:16px}
+.bars .mkt{position:absolute;left:0;top:3px;height:10px;background:var(--market);border-radius:2px;opacity:.55}
+.bars .mdl{position:absolute;top:0;height:16px;width:2px;background:var(--model);border-radius:1px}
+.bars .mdlbar{position:absolute;left:0;top:6px;height:4px;background:var(--model);border-radius:2px}
+.legend{display:flex;gap:14px;font:500 11px var(--f-cond);color:var(--ink-3);letter-spacing:.04em;text-transform:uppercase}
+.legend i{display:inline-block;width:14px;height:6px;border-radius:2px;margin-right:5px;vertical-align:1px}
+.row-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 12px;border-radius:9px;border:1px solid var(--line);background:var(--panel);font:600 13px/1 var(--f-cond);letter-spacing:.03em;text-decoration:none;cursor:pointer}
+.btn.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.small{font-size:12px;color:var(--ink-3)}
+.empty{background:var(--panel);border:1px dashed var(--line);border-radius:14px;padding:18px;color:var(--ink-2)}
+
+/* stat blocks */
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.kpi .k{font:500 10px/1.2 var(--f-cond);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.kpi .v{font:600 24px/1.1 var(--f-mono);margin-top:6px;font-variant-numeric:tabular-nums}
+.kpi .s{font-size:12px;color:var(--ink-2);margin-top:4px}
+.pos{color:var(--good)} .neg{color:var(--bad)}
+.progress{height:8px;border-radius:5px;background:var(--line-2);overflow:hidden;margin-top:10px}
+.progress i{display:block;height:100%;background:var(--accent)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px}
+.gate{display:grid;gap:10px}
+.gate-row{display:grid;grid-template-columns:22px 1fr auto;gap:8px;align-items:center}
+.chk{width:18px;height:18px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center}
+.chk.on{background:var(--good);border-color:var(--good)}
+.chk.on::after{content:"";width:6px;height:9px;border:solid var(--panel);border-width:0 2px 2px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.tbl-wrap{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:14px}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{padding:9px 10px;border-bottom:1px solid var(--line-2);text-align:left;white-space:nowrap}
+th{font:600 10px/1.2 var(--f-cond);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);background:var(--panel)}
+td.r,th.r{text-align:right}
+tr:last-child td{border-bottom:0}
+td .sub{display:block;color:var(--ink-3);font-size:11px;white-space:normal;max-width:230px}
+.alert{border-radius:12px;padding:11px 13px;background:var(--warn-soft);color:var(--warn);font-weight:500}
+svg text{fill:var(--ink-3);font:500 10px var(--f-mono)}
+.foot{margin-top:28px;color:var(--ink-3);font-size:12px;max-width:65ch}
+@media (min-width:760px){
+  .kpis{grid-template-columns:repeat(4,1fr)}
+}
+@media (prefers-reduced-motion:no-preference){
+  .detail{animation:open .18s ease-out}
+  @keyframes open{from{opacity:.4;transform:translateY(-3px)}to{opacity:1;transform:none}}
+}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <h1>Edge<span>Desk</span></h1>
+      <div class="stamp num" id="stamp">Loading…</div>
+    </div>
+    <div class="banner">
+      <span class="pill paper"><span class="dot"></span>Paper only · no real orders</span>
+      <span class="pill" id="srcPill">Weather + Tech/AI</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="view" id="v-ideas" role="tabpanel"></section>
+    <section class="view" id="v-paper" role="tabpanel" hidden></section>
+    <section class="view" id="v-score" role="tabpanel" hidden></section>
+    <section class="view" id="v-tech" role="tabpanel" hidden></section>
+  </main>
+</div>
+
+<nav class="tabs" role="tablist" aria-label="Sections">
+  <button role="tab" id="t-ideas" aria-controls="v-ideas" aria-selected="true">
+    <svg viewBox="0 0 24 24"><path d="M4 18l5-6 4 3 7-9"/><path d="M15 6h5v5"/></svg>Ideas</button>
+  <button role="tab" id="t-paper" aria-controls="v-paper" aria-selected="false">
+    <svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M8 10h8M8 14h5"/></svg>Paper $</button>
+  <button role="tab" id="t-score" aria-controls="v-score" aria-selected="false">
+    <svg viewBox="0 0 24 24"><path d="M4 20L20 4"/><circle cx="8" cy="15" r="1.6"/><circle cx="13" cy="10" r="1.6"/><circle cx="17" cy="8" r="1.6"/></svg>Scorecard</button>
+  <button role="tab" id="t-tech" aria-controls="v-tech" aria-selected="false">
+    <svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg>Tech/AI</button>
+</nav>
+
+<script>
+(function(){
+"use strict";
+var S = {feed:null, paper:null, stats:null, cat:"all", open:{}, bank:20};
+try { var b = parseFloat(localStorage.getItem("edgedesk.bank")); if (b > 0) S.bank = b; } catch(e) {}
+try { var t = localStorage.getItem("edgedesk.tab"); if (t) S.tab = t; } catch(e) {}
+
+var $ = function(id){ return document.getElementById(id); };
+function esc(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]; }); }
+function pct(x, d){ return x == null ? "–" : (x*100).toFixed(d == null ? 0 : d) + "%"; }
+function money(x){ return (x < 0 ? "−$" : "$") + Math.abs(x).toFixed(2); }
+function cents(x){ return x == null ? "–" : Math.round(x*100) + "¢"; }
+function ago(iso){
+  var m = (Date.now() - new Date(iso).getTime())/60000;
+  if (m < 60) return Math.max(1, Math.round(m)) + " min ago";
+  if (m < 60*36) return Math.round(m/60) + " h ago";
+  return Math.round(m/1440) + " d ago";
+}
+function fmtDate(d){ var x = new Date(d + "T12:00:00"); return x.toLocaleDateString(undefined, {weekday:"short", month:"short", day:"numeric"}); }
+
+// Same sizing rule as the paper account (PRD section 5, $20 bankroll table)
+function stakeFor(idea, bank){
+  var P = (S.feed && S.feed.params && S.feed.params.paper) || {kellyFraction:.25,minStake:1,capPct:.05,skipBelow:.5};
+  var k = P.kellyFraction * idea.kelly * bank;
+  if (k < P.skipBelow) return null;
+  return Math.min(Math.max(k, P.minStake), Math.max(P.minStake, P.capPct * bank));
+}
+
+function load(path){
+  return fetch(path, {cache:"no-store"}).then(function(r){ if(!r.ok) throw new Error(path + " " + r.status); return r.json(); });
+}
+
+// ---------------- ideas
+function snapFor(slug){
+  var w = (S.feed && S.feed.weather) || [];
+  for (var i=0;i<w.length;i++) if (w[i].slug === slug) return w[i];
+  return null;
+}
+function distHTML(idea){
+  var s = snapFor(idea.slug); if (!s) return "";
+  var max = 0; s.rows.forEach(function(r){ max = Math.max(max, r.mid, r.pModel); });
+  max = Math.max(max, .05);
+  var rows = s.rows.map(function(r){
+    var hl = r.label === idea.outcome ? " hl" : "";
+    return '<div class="dist-row'+hl+'"><span class="lab">'+esc(r.label)+'</span>' +
+      '<span class="bars" aria-hidden="true"><span class="mkt" style="width:'+(r.mid/max*100).toFixed(1)+'%"></span>' +
+      '<span class="mdlbar" style="width:'+(r.pModel/max*100).toFixed(1)+'%"></span></span>' +
+      '<span class="num" style="text-align:right">'+pct(r.pModel)+'</span></div>';
+  }).join("");
+  var u = "°" + s.unit;
+  return '<div><div class="legend" style="margin-bottom:8px"><span><i style="background:var(--market);opacity:.55"></i>Market</span><span><i style="background:var(--model)"></i>Model</span></div>' +
+    '<div class="dist">'+rows+'</div>' +
+    '<p class="small" style="margin:8px 0 0">Station '+esc(s.station)+' · model '+s.mu+u+' ± '+s.sigma+u+' · '+s.nModels+' models' +
+    (s.calibrated ? ' · bias-corrected from 21 days of observations' : ' · no observation history') + '</p></div>';
+}
+function ideaCard(idea){
+  var open = !!S.open[idea.id];
+  var stake = stakeFor(idea, S.bank);
+  var confW = Math.max(4, idea.confidence);
+  var tags = [];
+  if (idea.cat === "weather") tags.push('<span class="tag">'+esc(idea.city)+' · '+fmtDate(idea.date)+'</span>');
+  else tags.push('<span class="tag">Tech/AI · ends '+esc((idea.endDate||"").slice(0,10))+'</span>');
+  if (idea.smartAgree) tags.push('<span class="tag ok">'+idea.smartAgree+' smart wallet'+(idea.smartAgree>1?"s":"")+' agree</span>');
+  if (idea.smartAgainst) tags.push('<span class="tag no">'+idea.smartAgainst+' smart wallet'+(idea.smartAgainst>1?"s":"")+' disagree</span>');
+  if (idea.lead >= 2) tags.push('<span class="tag">'+idea.lead+' days out</span>');
+  var sizeTxt = stake == null ? "Too small" : money(stake);
+  var detail = !open ? "" :
+    '<div class="detail">' +
+      '<p class="why">'+esc(idea.why)+'</p>' +
+      (idea.cat === "weather" ? distHTML(idea) : "") +
+      (idea.sources && idea.sources.length ? '<div class="small">Sources: '+idea.sources.map(function(u,i){return '<a href="'+esc(u)+'" target="_blank" rel="noopener">['+(i+1)+']</a>';}).join(" ")+'</div>' : "") +
+      '<div class="small">Buy '+idea.side+' at '+cents(idea.price)+' (fee est. '+cents(idea.cost-idea.price)+'/share). Pays $1 per share if right. ' +
+        (stake == null ? 'Quarter-Kelly stake is under $0.50 at a '+money(S.bank)+' bankroll, so skip it.' :
+         'At '+money(S.bank)+': stake '+money(stake)+' ≈ '+(stake/idea.cost).toFixed(1)+' shares, worst case −'+money(stake)+'.') +
+        ' A limit order at the bid avoids the taker fee but may not fill.</div>' +
+      '<div class="row-actions"><a class="btn primary" href="'+esc(idea.url)+'" target="_blank" rel="noopener">Open on Polymarket</a></div>' +
+    '</div>';
+  return '<article class="card">' +
+    '<button class="card-h" data-id="'+esc(idea.id)+'" aria-expanded="'+open+'">' +
+      '<div><div class="ev">'+esc(idea.event.replace(/\?$/,""))+'</div>' +
+      '<div class="bet"><span class="side '+idea.side+'">BUY '+idea.side+'</span>'+esc(idea.outcome)+' <span class="num" style="color:var(--ink-3);font-weight:500">@ '+cents(idea.price)+'</span></div></div>' +
+      '<div class="edgebox"><div class="edge">+'+(idea.edge*100).toFixed(1)+'<small>pt</small></div><div class="edgelab">Net edge</div></div>' +
+    '</button>' +
+    '<dl class="metrics" style="margin:0">' +
+      '<div><dt>Win prob.</dt><dd>'+pct(idea.pWin)+'</dd></div>' +
+      '<div><dt>Market</dt><dd>'+pct(idea.side==="YES"?idea.mid:1-idea.mid)+'</dd></div>' +
+      '<div><dt>Stake</dt><dd>'+sizeTxt+'</dd></div>' +
+      '<div><dt>Confidence</dt><dd class="conf"><span>'+idea.confidence+'</span><span class="meter"><i style="width:'+confW+'%"></i></span></dd></div>' +
+    '</dl>' +
+    '<div class="tags">'+tags.join("")+'</div>' + detail +
+  '</article>';
+}
+function renderIdeas(){
+  var v = $("v-ideas"), f = S.feed;
+  if (!f) return;
+  var ideas = (f.ideas || []).filter(function(i){ return S.cat === "all" || i.cat === S.cat; });
+  var html = '<p class="lede">Trades where the forecast disagrees with the price by more than the spread and fees. Ranked by edge × confidence. Nothing here has been proven yet: check the Scorecard before trusting it.</p>' +
+    '<div class="controls"><div class="seg" role="group" aria-label="Category">' +
+      ["all","weather","tech"].map(function(c){ return '<button data-cat="'+c+'" aria-pressed="'+(S.cat===c)+'">'+({all:"All",weather:"Weather",tech:"Tech/AI"})[c]+'</button>'; }).join("") +
+    '</div><label class="bank" for="bankIn">Bankroll $<input id="bankIn" type="number" inputmode="decimal" min="1" step="1" value="'+S.bank+'"></label></div>' +
+    '<div class="sect"><span>'+ideas.length+' idea'+(ideas.length===1?"":"s")+'</span><span>Tap a card for the reasoning</span></div>';
+  if (!ideas.length){
+    html += '<div class="empty">'+(S.cat==="tech" ? 'No tech/AI ideas yet. Tech ideas need an AI estimate first: see the Tech/AI tab.' : 'No trade clears the edge threshold right now. That is normal; the next refresh may find some.')+'</div>';
+  } else {
+    html += '<div class="list">' + ideas.map(ideaCard).join("") + '</div>';
+  }
+  if (f.smartWallets && f.smartWallets.length){
+    html += '<div class="sect"><span>Smart money being tracked</span><span>'+f.smartWallets.length+' wallets</span></div>' +
+      '<p class="lede small">Weather traders profitable this month and all time, excluding likely market makers. Used only as a tag and a confidence nudge, never to size a bet.</p>' +
+      '<div class="tbl-wrap"><table><thead><tr><th>Trader</th><th class="r">30-day P&amp;L</th><th class="r">All-time P&amp;L</th></tr></thead><tbody>' +
+      f.smartWallets.slice(0,10).map(function(w){ return '<tr><td>'+esc(w.name)+'</td><td class="r num">$'+w.pnlMonth.toLocaleString()+'</td><td class="r num">$'+w.pnlAll.toLocaleString()+'</td></tr>'; }).join("") +
+      '</tbody></table></div>';
+  }
+  v.innerHTML = html;
+}
+
+// ---------------- paper
+function sparkline(pts, w, h){
+  if (!pts || pts.length < 2) return "";
+  var ys = pts.map(function(p){ return p.equity; });
+  var lo = Math.min.apply(null, ys.concat([S.paper.start])), hi = Math.max.apply(null, ys.concat([S.paper.start]));
+  if (hi - lo < 1) { hi += .5; lo -= .5; }
+  var pad = 4;
+  function X(i){ return pad + i/(pts.length-1)*(w-2*pad); }
+  function Y(v){ return h - pad - (v-lo)/(hi-lo)*(h-2*pad); }
+  var d = pts.map(function(p,i){ return (i?"L":"M")+X(i).toFixed(1)+" "+Y(p.equity).toFixed(1); }).join(" ");
+  var area = d + " L"+X(pts.length-1).toFixed(1)+" "+(h-pad)+" L"+X(0).toFixed(1)+" "+(h-pad)+" Z";
+  var base = Y(S.paper.start);
+  var last = pts[pts.length-1];
+  return '<svg viewBox="0 0 '+w+' '+h+'" width="100%" height="'+h+'" role="img" aria-label="Paper equity over time">' +
+    '<line x1="'+pad+'" x2="'+(w-pad)+'" y1="'+base+'" y2="'+base+'" stroke="var(--line)" stroke-dasharray="3 3"/>' +
+    '<path d="'+area+'" fill="var(--accent-soft)" stroke="none"/>' +
+    '<path d="'+d+'" fill="none" stroke="var(--accent)" stroke-width="2"/>' +
+    '<circle cx="'+X(pts.length-1)+'" cy="'+Y(last.equity)+'" r="3.5" fill="var(--accent)"/></svg>';
+}
+function renderPaper(){
+  var v = $("v-paper"), p = S.paper;
+  if (!p){ v.innerHTML = '<div class="empty">The paper account starts on the first scheduled run.</div>'; return; }
+  var s = p.summary, gain = s.equity - p.start, toGo = Math.max(0, s.target - s.equity);
+  var prog = Math.max(0, Math.min(1, (s.equity - p.start)/(s.target - p.start)));
+  var html = '<p class="lede">A $20 account the engine runs by itself. It takes every idea that passes the risk rules, at the ask price plus fees, and settles when the market resolves. This is the evidence for the go-live decision.</p>';
+  if (s.blocked) html += '<div class="alert" style="margin-bottom:12px">'+esc(s.blocked)+'</div>';
+  html += '<div class="kpis">' +
+    '<div class="kpi"><div class="k">Equity</div><div class="v">'+money(s.equity)+'</div><div class="s '+(gain>=0?"pos":"neg")+'">'+(gain>=0?"+":"")+money(gain)+' since start</div></div>' +
+    '<div class="kpi"><div class="k">Goal $'+s.target.toFixed(0)+'</div><div class="v">'+Math.round(prog*100)+'%</div><div class="s">'+money(toGo)+' to go</div><div class="progress"><i style="width:'+(prog*100).toFixed(1)+'%"></i></div></div>' +
+    '<div class="kpi"><div class="k">Record</div><div class="v">'+s.wins+'–'+(s.trades-s.wins)+'</div><div class="s">'+(s.trades? pct(s.wins/s.trades)+' win rate':'No settled trades yet')+'</div></div>' +
+    '<div class="kpi"><div class="k">Drawdown</div><div class="v">'+pct(s.drawdown,1)+'</div><div class="s">Stops at 20% or $12</div></div>' +
+  '</div>';
+  html += '<div class="sect"><span>Equity</span><span class="num">peak '+money(s.peak)+'</span></div><div class="panel">' +
+    (p.equity.length > 1 ? sparkline(p.equity, 640, 120) : '<span class="small">The curve appears after the second run.</span>') + '</div>';
+  html += '<div class="sect"><span>Open positions</span><span class="num">'+money(s.openCost)+' of $'+p.rules.maxOpen.toFixed(0)+' max</span></div>';
+  if (!p.open.length) html += '<div class="empty">No open positions.</div>';
+  else html += '<div class="tbl-wrap"><table><thead><tr><th>Bet</th><th class="r">Price</th><th class="r">Stake</th><th class="r">Win prob.</th></tr></thead><tbody>' +
+    p.open.slice().reverse().map(function(o){ return '<tr><td><a href="'+esc(o.url)+'" target="_blank" rel="noopener"><b>'+o.side+'</b> '+esc(o.outcome)+'</a><span class="sub">'+esc(o.event)+'</span></td><td class="r num">'+cents(o.price)+'</td><td class="r num">'+money(o.stake)+'</td><td class="r num">'+pct(o.pWin)+'</td></tr>'; }).join("") +
+    '</tbody></table></div>';
+  html += '<div class="sect"><span>Settled</span><span class="num">'+(s.realized>=0?"+":"")+money(s.realized)+'</span></div>';
+  if (!p.closed.length) html += '<div class="empty">Weather markets settle the day after their date, so the first results land within about 48 hours.</div>';
+  else html += '<div class="tbl-wrap"><table><thead><tr><th>Bet</th><th class="r">Stake</th><th class="r">P&amp;L</th></tr></thead><tbody>' +
+    p.closed.slice(-30).reverse().map(function(o){ return '<tr><td><b>'+o.side+'</b> '+esc(o.outcome)+'<span class="sub">'+esc(o.event)+'</span></td><td class="r num">'+money(o.stake)+'</td><td class="r num '+(o.pnl>=0?"pos":"neg")+'">'+(o.pnl>=0?"+":"")+money(o.pnl)+'</td></tr>'; }).join("") +
+    '</tbody></table></div>';
+  var r = p.rules;
+  html += '<div class="sect"><span>Rules in force</span></div><div class="tbl-wrap"><table><tbody>' +
+    [["Stake","Quarter-Kelly, min $"+r.minStake.toFixed(0)+" (Polymarket's minimum), max 5% of equity"],
+     ["Skip","Ideas whose quarter-Kelly stake is under $"+r.skipBelow.toFixed(2)],
+     ["Open exposure","At most $"+r.maxOpen.toFixed(0)+", one bet per event"],
+     ["Daily loss stop","$"+r.dailyLossStop.toFixed(0)+" lost today → no new trades until tomorrow"],
+     ["Floor","Equity at $"+r.floor.toFixed(0)+" → account halts for review"]].map(function(x){ return '<tr><td>'+x[0]+'</td><td style="white-space:normal">'+x[1]+'</td></tr>'; }).join("") +
+    '</tbody></table></div>';
+  v.innerHTML = html;
+}
+
+// ---------------- scorecard
+function reliabilitySVG(bins){
+  var w = 300, h = 220, p = 30;
+  function X(v){ return p + v*(w-p-10); } function Y(v){ return h - p - v*(h-p-10); }
+  var g = '<line x1="'+X(0)+'" y1="'+Y(0)+'" x2="'+X(1)+'" y2="'+Y(1)+'" stroke="var(--line)" stroke-dasharray="4 4"/>';
+  [0,.5,1].forEach(function(t){ g += '<text x="'+X(t)+'" y="'+(h-p+16)+'" text-anchor="middle">'+t*100+'%</text><text x="'+(p-6)+'" y="'+(Y(t)+3)+'" text-anchor="end">'+t*100+'%</text>'; g += '<line x1="'+p+'" x2="'+X(1)+'" y1="'+Y(t)+'" y2="'+Y(t)+'" stroke="var(--line-2)"/>'; });
+  bins.forEach(function(b){ var r = Math.max(3, Math.min(10, Math.sqrt(b.n))); g += '<circle cx="'+X(b.avgP)+'" cy="'+Y(b.hit)+'" r="'+r+'" fill="var(--accent)" fill-opacity=".75"/>'; });
+  g += '<text x="'+(w/2)+'" y="'+(h-2)+'" text-anchor="middle">Predicted</text>';
+  return '<svg viewBox="0 0 '+w+' '+h+'" width="100%" style="max-width:420px" role="img" aria-label="Predicted probability versus how often it happened">'+g+'</svg>';
+}
+function renderScore(){
+  var v = $("v-score"), st = S.stats;
+  if (!st){ v.innerHTML = '<div class="empty">No scorecard yet.</div>'; return; }
+  var a = st.all, g = st.gate, s = S.paper && S.paper.summary;
+  var evProg = Math.min(1, (g.events||0)/g.eventsNeeded);
+  var html = '<p class="lede">Every forecast is logged before the market resolves, then scored with the Brier score (lower is better). The model only has an edge if it beats the market price on the same markets.</p>';
+  html += '<div class="panel gate"><div class="sect" style="margin:0 0 4px"><span>Go-live gate</span><span>'+(g.events>=g.eventsNeeded && g.beatsMarket && s && s.realized>0 && s.drawdown<.2 ? "Passed" : "Not yet")+'</span></div>' +
+    '<div class="gate-row"><span class="chk '+(g.events>=g.eventsNeeded?"on":"")+'"></span><span>100+ resolved events</span><span class="num">'+g.events+'/'+g.eventsNeeded+'</span></div>' +
+    '<div class="progress" style="margin:-4px 0 4px 30px"><i style="width:'+(evProg*100)+'%"></i></div>' +
+    '<div class="gate-row"><span class="chk '+(g.beatsMarket?"on":"")+'"></span><span>Beats the market by 2%+</span><span class="num">'+(a && a.skillVsMarket!=null ? (a.skillVsMarket>0?"+":"")+pct(a.skillVsMarket,1) : "–")+'</span></div>' +
+    '<div class="gate-row"><span class="chk '+(s && s.realized>0?"on":"")+'"></span><span>Paper P&amp;L positive</span><span class="num">'+(s? money(s.realized):"–")+'</span></div>' +
+    '<div class="gate-row"><span class="chk '+(s && s.trades>0 && s.drawdown<.2?"on":"")+'"></span><span>Drawdown under 20%</span><span class="num">'+(s? pct(s.drawdown,1):"–")+'</span></div>' +
+  '</div>';
+  if (!a){
+    html += '<div class="empty" style="margin-top:12px">Collecting. About 60 weather events resolve each day, so the first scores appear within 48 hours and the 100-event gate can be reached in under a week.</div>';
+  } else {
+    html += '<div class="sect"><span>Brier score, all resolved</span><span class="num">'+a.n+' markets</span></div><div class="kpis">' +
+      '<div class="kpi"><div class="k">Blended estimate</div><div class="v">'+a.brierBlend.toFixed(4)+'</div><div class="s">What the ideas use</div></div>' +
+      '<div class="kpi"><div class="k">Market price</div><div class="v">'+a.brierMarket.toFixed(4)+'</div><div class="s">The bar to beat</div></div>' +
+      '<div class="kpi"><div class="k">Model alone</div><div class="v">'+a.brierModel.toFixed(4)+'</div><div class="s">Forecast, no blending</div></div>' +
+      '<div class="kpi"><div class="k">Skill vs market</div><div class="v '+(a.skillVsMarket>0?"pos":"neg")+'">'+(a.skillVsMarket>0?"+":"")+pct(a.skillVsMarket,1)+'</div><div class="s">Above 0 = better than price</div></div></div>';
+    html += '<div class="sect"><span>By lead time</span></div><div class="tbl-wrap"><table><thead><tr><th>Days out</th><th class="r">Markets</th><th class="r">Blend</th><th class="r">Market</th><th class="r">Skill</th></tr></thead><tbody>' +
+      ["1","2","3"].filter(function(k){ return st.byLead[k]; }).map(function(k){ var b = st.byLead[k]; return '<tr><td>'+k+'</td><td class="r num">'+b.n+'</td><td class="r num">'+b.brierBlend.toFixed(4)+'</td><td class="r num">'+b.brierMarket.toFixed(4)+'</td><td class="r num '+(b.skillVsMarket>0?"pos":"neg")+'">'+pct(b.skillVsMarket,1)+'</td></tr>'; }).join("") +
+      '</tbody></table></div>';
+    if (st.reliability && st.reliability.length){
+      html += '<div class="sect"><span>Calibration</span><span>Dots on the line = honest odds</span></div><div class="panel">'+reliabilitySVG(st.reliability)+'</div>';
+    }
+    if (st.byCity && st.byCity.length){
+      html += '<div class="sect"><span>By city</span><span>Best first</span></div><div class="tbl-wrap"><table><thead><tr><th>City</th><th class="r">Events</th><th class="r">Skill</th></tr></thead><tbody>' +
+        st.byCity.map(function(c){ return '<tr><td>'+esc(c.city)+'</td><td class="r num">'+c.events+'</td><td class="r num '+(c.skillVsMarket>0?"pos":"neg")+'">'+pct(c.skillVsMarket,1)+'</td></tr>'; }).join("") + '</tbody></table></div>';
+    }
+  }
+  var t = st.sigmaTune || {};
+  html += '<p class="foot">Forecast spread multiplier: <span class="num">'+(t.k||1)+'</span> ('+esc(t.note||"")+'). Stations corrected from observations: '+((S.feed&&S.feed.calibratedStations)||0)+'. Forecasts: '+esc(S.feed && S.feed.forecastSource)+'.</p>';
+  v.innerHTML = html;
+}
+
+// ---------------- tech
+function renderTech(){
+  var v = $("v-tech"), f = S.feed;
+  var t = (f && f.tech) || [];
+  var html = '<p class="lede">Tech and AI markets ending within 75 days with a tight spread. Prices refresh automatically. AI estimates are added only when you ask Claude to research them, so this costs no usage until you do.</p>' +
+    '<div class="panel" style="margin-bottom:12px"><div class="small">AI estimates '+(f && f.aiEstimatesAt ? 'last added '+ago(f.aiEstimatesAt) : 'not added yet')+'. To add them, ask Claude: “Research the Edge Desk tech shortlist and update ai_estimates.json.”</div></div>';
+  if (!t.length) html += '<div class="empty">No tech markets pass the filters right now.</div>';
+  else html += '<div class="tbl-wrap"><table><thead><tr><th>Market</th><th class="r">Yes</th><th class="r">AI</th><th class="r">Ends</th></tr></thead><tbody>' +
+    t.map(function(m){ return '<tr><td><a href="'+esc(m.url)+'" target="_blank" rel="noopener">'+esc(m.outcome && m.outcome!=="Yes" ? m.outcome : m.question)+'</a><span class="sub">'+esc(m.event)+'</span></td><td class="r num">'+cents(m.mid)+'</td><td class="r num">'+(m.aiP!=null?pct(m.aiP):"–")+'</td><td class="r num">'+esc((m.endDate||"").slice(5,10))+'</td></tr>'; }).join("") +
+    '</tbody></table></div>';
+  v.innerHTML = html;
+}
+
+function renderAll(){
+  var f = S.feed;
+  if (f){
+    var age = (Date.now() - new Date(f.generatedAt).getTime())/3600000;
+    var st = $("stamp");
+    st.textContent = "Updated " + ago(f.generatedAt);
+    st.className = "stamp num" + (age > 8 ? " stale" : "");
+    if (age > 8) st.textContent += " · refresh may be failing";
+    $("srcPill").textContent = (f.ideas||[]).length + " ideas · " + (f.weather||[]).length + " weather markets";
+  }
+  renderIdeas(); renderPaper(); renderScore(); renderTech();
+}
+
+// ---------------- events
+document.addEventListener("click", function(e){
+  var h = e.target.closest(".card-h");
+  if (h){ var id = h.getAttribute("data-id"); S.open[id] = !S.open[id]; renderIdeas(); return; }
+  var c = e.target.closest("[data-cat]");
+  if (c){ S.cat = c.getAttribute("data-cat"); renderIdeas(); return; }
+  var tab = e.target.closest('[role="tab"]');
+  if (tab) selectTab(tab.id.slice(2));
+});
+document.addEventListener("change", function(e){
+  if (e.target.id === "bankIn"){
+    var b = parseFloat(e.target.value);
+    if (b > 0){ S.bank = b; try{ localStorage.setItem("edgedesk.bank", String(b)); }catch(x){} renderIdeas(); }
+  }
+});
+function selectTab(name){
+  ["ideas","paper","score","tech"].forEach(function(n){
+    $("t-"+n).setAttribute("aria-selected", String(n===name));
+    $("v-"+n).hidden = n !== name;
+  });
+  try{ localStorage.setItem("edgedesk.tab", name); }catch(x){}
+  window.scrollTo(0,0);
+}
+var hash = (location.hash||"").slice(1);
+selectTab(["ideas","paper","score","tech"].indexOf(hash) >= 0 ? hash : (S.tab || "ideas"));
+
+Promise.all([load("data/feed.json"), load("data/paper.json").catch(function(){return null;}), load("data/stats.json").catch(function(){return null;})])
+  .then(function(r){ S.feed = r[0]; S.paper = r[1]; S.stats = r[2]; renderAll(); })
+  .catch(function(err){
+    $("stamp").textContent = "No data";
+    $("v-ideas").innerHTML = '<div class="empty">Could not load the latest scan ('+esc(err.message)+'). If you just set up the repo, wait for the first scheduled run to finish, then reload.</div>';
+  });
+})();
+</script>
