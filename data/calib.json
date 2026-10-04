@@ -1,5 +1,5 @@
 {
- "at": "2026-10-03T16:02:08.869351+00:00",
+ "at": "2026-10-04T15:48:27.269554+00:00",
  "stations": {
   "CYYZ": {
    "high": {
@@ -8,176 +8,176 @@
     "n": 21
    },
    "low": {
-    "biasF": 0.48,
-    "residF": 1.11,
+    "biasF": 0.49,
+    "residF": 1.02,
     "n": 21
    }
   },
   "EDDM": {
    "high": {
-    "biasF": 1.97,
-    "residF": 0.89,
+    "biasF": 1.9,
+    "residF": 0.95,
     "n": 21
    },
    "low": {
-    "biasF": -4.07,
-    "residF": 1.57,
+    "biasF": -4.09,
+    "residF": 1.56,
     "n": 21
    }
   },
   "EFHK": {
    "high": {
-    "biasF": 0.93,
-    "residF": 1.01,
+    "biasF": 0.82,
+    "residF": 1.18,
     "n": 21
    },
    "low": {
-    "biasF": -1.56,
-    "residF": 2.91,
+    "biasF": -1.33,
+    "residF": 2.72,
     "n": 21
    }
   },
   "EGLC": {
    "high": {
-    "biasF": 0.65,
-    "residF": 1.37,
+    "biasF": 0.67,
+    "residF": 1.36,
     "n": 21
    },
    "low": {
-    "biasF": 0.44,
-    "residF": 0.84,
+    "biasF": 0.47,
+    "residF": 0.9,
     "n": 21
    }
   },
   "EHAM": {
    "high": {
-    "biasF": 0.52,
-    "residF": 1.0,
+    "biasF": 0.46,
+    "residF": 0.94,
     "n": 21
    },
    "low": {
-    "biasF": -0.99,
-    "residF": 1.4,
+    "biasF": -0.98,
+    "residF": 1.41,
     "n": 21
    }
   },
   "EPWA": {
    "high": {
-    "biasF": 0.01,
-    "residF": 1.16,
+    "biasF": 0.02,
+    "residF": 1.19,
     "n": 21
    },
    "low": {
-    "biasF": -2.32,
-    "residF": 2.16,
+    "biasF": -2.4,
+    "residF": 2.24,
     "n": 21
    }
   },
   "FACT": {
    "high": {
-    "biasF": -0.11,
-    "residF": 1.5,
+    "biasF": 0.02,
+    "residF": 1.36,
     "n": 21
    },
    "low": {
-    "biasF": -1.53,
-    "residF": 2.6,
+    "biasF": -1.48,
+    "residF": 2.62,
     "n": 21
    }
   },
   "KATL": {
    "high": {
-    "biasF": 0.74,
+    "biasF": 0.77,
     "residF": 0.8,
     "n": 21
    },
    "low": {
-    "biasF": 1.23,
-    "residF": 1.52,
+    "biasF": 1.21,
+    "residF": 1.55,
     "n": 21
    }
   },
   "KAUS": {
    "high": {
-    "biasF": 1.88,
-    "residF": 1.3,
+    "biasF": 1.73,
+    "residF": 1.37,
     "n": 21
    },
    "low": {
-    "biasF": -1.92,
-    "residF": 1.39,
+    "biasF": -1.8,
+    "residF": 1.65,
     "n": 21
    }
   },
   "KBKF": {
    "high": {
-    "biasF": 1.28,
-    "residF": 1.96,
+    "biasF": 1.32,
+    "residF": 1.94,
     "n": 21
    },
    "low": {
-    "biasF": 0.28,
-    "residF": 1.38,
+    "biasF": 0.46,
+    "residF": 1.49,
     "n": 21
    }
   },
   "KDAL": {
    "high": {
-    "biasF": 1.02,
+    "biasF": 1.01,
     "residF": 1.01,
     "n": 21
    },
    "low": {
-    "biasF": 1.12,
-    "residF": 1.16,
+    "biasF": 1.04,
+    "residF": 1.26,
     "n": 21
    }
   },
   "KHOU": {
    "high": {
-    "biasF": 0.44,
-    "residF": 0.89,
+    "biasF": 0.48,
+    "residF": 0.96,
     "n": 21
    },
    "low": {
-    "biasF": 0.38,
+    "biasF": 0.35,
     "residF": 0.9,
     "n": 21
    }
   },
   "KLAX": {
    "high": {
-    "biasF": -1.38,
-    "residF": 2.16,
+    "biasF": -1.3,
+    "residF": 2.19,
     "n": 21
    },
    "low": {
-    "biasF": 2.41,
-    "residF": 0.92,
+    "biasF": 2.5,
+    "residF": 0.85,
     "n": 21
    }
   },
   "KLGA": {
    "high": {
-    "biasF": 0.2,
-    "residF": 1.4,
+    "biasF": 0.16,
+    "residF": 1.43,
     "n": 21
    },
    "low": {
-    "biasF": 1.54,
-    "residF": 1.39,
+    "biasF": 1.46,
+    "residF": 1.28,
     "n": 21
    }
   },
   "KMIA": {
    "high": {
-    "biasF": 1.12,
-    "residF": 1.38,
+    "biasF": 0.96,
+    "residF": 1.31,
     "n": 21
    },
    "low": {
-    "biasF": 0.54,
-    "residF": 1.74,
+    "biasF": 0.62,
+    "residF": 1.82,
     "n": 21
    }
   },
@@ -188,279 +188,279 @@
     "n": 21
    },
    "low": {
-    "biasF": 0.32,
-    "residF": 1.15,
+    "biasF": 0.29,
+    "residF": 1.2,
     "n": 21
    }
   },
   "KSEA": {
    "high": {
-    "biasF": 0.5,
-    "residF": 1.56,
+    "biasF": 0.52,
+    "residF": 1.55,
     "n": 21
    },
    "low": {
-    "biasF": 0.73,
-    "residF": 1.08,
+    "biasF": 0.78,
+    "residF": 1.06,
     "n": 21
    }
   },
   "KSFO": {
    "high": {
-    "biasF": 0.03,
-    "residF": 1.41,
+    "biasF": 0.02,
+    "residF": 1.4,
     "n": 21
    },
    "low": {
-    "biasF": 0.66,
-    "residF": 0.99,
+    "biasF": 0.65,
+    "residF": 0.98,
     "n": 21
    }
   },
   "LEMD": {
    "high": {
-    "biasF": 1.58,
-    "residF": 0.96,
+    "biasF": 1.51,
+    "residF": 0.95,
     "n": 21
    },
    "low": {
-    "biasF": -0.74,
-    "residF": 1.25,
+    "biasF": -0.76,
+    "residF": 1.27,
     "n": 21
    }
   },
   "LFPB": {
    "high": {
-    "biasF": 1.18,
-    "residF": 0.83,
+    "biasF": 1.14,
+    "residF": 0.82,
     "n": 21
    },
    "low": {
-    "biasF": -0.79,
-    "residF": 3.12,
+    "biasF": -0.76,
+    "residF": 3.1,
     "n": 21
    }
   },
   "LIMC": {
    "high": {
-    "biasF": 0.86,
-    "residF": 0.95,
+    "biasF": 0.8,
+    "residF": 0.97,
     "n": 21
    },
    "low": {
-    "biasF": -1.05,
-    "residF": 1.52,
+    "biasF": -1.21,
+    "residF": 1.49,
     "n": 21
    }
   },
   "LLBG": {
    "high": {
-    "biasF": -0.35,
-    "residF": 1.0,
+    "biasF": -0.21,
+    "residF": 1.27,
     "n": 20
    },
    "low": {
-    "biasF": 1.68,
-    "residF": 1.11,
+    "biasF": 1.65,
+    "residF": 1.12,
     "n": 20
    }
   },
   "LTAC": {
    "high": {
-    "biasF": 1.0,
-    "residF": 1.82,
+    "biasF": 0.98,
+    "residF": 1.81,
     "n": 21
    },
    "low": {
-    "biasF": -1.71,
-    "residF": 3.06,
+    "biasF": -1.61,
+    "residF": 2.92,
     "n": 21
    }
   },
   "LTFM": {
    "high": {
-    "biasF": 0.83,
-    "residF": 1.11,
+    "biasF": 0.89,
+    "residF": 1.05,
     "n": 21
    },
    "low": {
-    "biasF": -0.13,
-    "residF": 2.05,
+    "biasF": -0.29,
+    "residF": 1.91,
     "n": 21
    }
   },
   "MMMX": {
    "high": {
-    "biasF": 0.42,
-    "residF": 1.06,
+    "biasF": 0.4,
+    "residF": 1.03,
     "n": 21
    },
    "low": {
-    "biasF": 0.36,
-    "residF": 1.98,
+    "biasF": 0.43,
+    "residF": 1.93,
     "n": 21
    }
   },
   "MPMG": {
    "high": {
-    "biasF": 0.96,
-    "residF": 1.71,
+    "biasF": 1.02,
+    "residF": 1.77,
     "n": 21
    },
    "low": {
-    "biasF": -0.16,
-    "residF": 1.29,
+    "biasF": -0.27,
+    "residF": 1.32,
     "n": 21
    }
   },
   "NZWN": {
    "high": {
-    "biasF": 1.17,
-    "residF": 0.89,
+    "biasF": 0.98,
+    "residF": 0.99,
     "n": 21
    },
    "low": {
-    "biasF": -0.18,
-    "residF": 1.37,
+    "biasF": 0.04,
+    "residF": 1.57,
     "n": 21
    }
   },
   "OEJN": {
    "high": {
-    "biasF": 0.12,
-    "residF": 1.23,
+    "biasF": 0.02,
+    "residF": 1.18,
     "n": 21
    },
    "low": {
-    "biasF": 2.43,
-    "residF": 0.83,
+    "biasF": 2.33,
+    "residF": 0.8,
     "n": 21
    }
   },
   "OPKC": {
    "high": {
-    "biasF": 1.26,
-    "residF": 1.63,
+    "biasF": 1.22,
+    "residF": 1.62,
     "n": 21
    },
    "low": {
-    "biasF": 1.19,
+    "biasF": 1.18,
     "residF": 0.97,
     "n": 21
    }
   },
   "RCSS": {
    "high": {
-    "biasF": 2.3,
-    "residF": 1.26,
-    "n": 20
+    "biasF": 2.27,
+    "residF": 1.27,
+    "n": 21
    },
    "low": {
-    "biasF": 1.41,
+    "biasF": 1.39,
     "residF": 1.01,
-    "n": 20
+    "n": 21
    }
   },
   "RJTT": {
    "high": {
-    "biasF": -0.11,
-    "residF": 1.62,
+    "biasF": -0.15,
+    "residF": 1.59,
     "n": 21
    },
    "low": {
-    "biasF": 0.32,
-    "residF": 1.32,
+    "biasF": 0.54,
+    "residF": 1.41,
     "n": 21
    }
   },
   "RKPK": {
    "high": {
-    "biasF": 1.28,
-    "residF": 1.11,
+    "biasF": 1.36,
+    "residF": 1.12,
     "n": 20
    },
    "low": {
-    "biasF": -0.8,
-    "residF": 1.47,
+    "biasF": -0.87,
+    "residF": 1.41,
     "n": 20
    }
   },
   "RKSI": {
    "high": {
-    "biasF": 0.8,
-    "residF": 2.8,
+    "biasF": 0.96,
+    "residF": 1.78,
     "n": 21
    },
    "low": {
-    "biasF": -1.21,
-    "residF": 1.08,
+    "biasF": -1.2,
+    "residF": 1.09,
     "n": 21
    }
   },
   "RPLL": {
    "high": {
-    "biasF": 1.21,
-    "residF": 1.4,
-    "n": 20
+    "biasF": 1.23,
+    "residF": 1.36,
+    "n": 21
    },
    "low": {
-    "biasF": 0.96,
-    "residF": 1.39,
-    "n": 20
+    "biasF": 0.95,
+    "residF": 1.35,
+    "n": 21
    }
   },
   "SAEZ": {
    "high": {
-    "biasF": 1.02,
-    "residF": 1.5,
+    "biasF": 1.12,
+    "residF": 1.56,
     "n": 21
    },
    "low": {
-    "biasF": -2.58,
-    "residF": 2.52,
+    "biasF": -2.53,
+    "residF": 2.61,
     "n": 21
    }
   },
   "SBGR": {
    "high": {
-    "biasF": 0.46,
-    "residF": 2.45,
+    "biasF": 0.65,
+    "residF": 2.1,
     "n": 21
    },
    "low": {
-    "biasF": 0.36,
-    "residF": 0.97,
+    "biasF": 0.33,
+    "residF": 0.9,
     "n": 21
    }
   },
   "UUWW": {
    "high": {
-    "biasF": 0.21,
-    "residF": 1.46,
+    "biasF": 0.17,
+    "residF": 1.45,
     "n": 21
    },
    "low": {
-    "biasF": -0.34,
-    "residF": 1.69,
+    "biasF": -0.41,
+    "residF": 1.72,
     "n": 21
    }
   },
   "VILK": {
    "high": {
-    "biasF": 0.28,
+    "biasF": 0.2,
     "residF": 1.22,
     "n": 21
    },
    "low": {
-    "biasF": -0.09,
-    "residF": 1.18,
+    "biasF": -0.03,
+    "residF": 1.28,
     "n": 21
    }
   },
   "WMKK": {
    "high": {
-    "biasF": 0.65,
-    "residF": 2.23,
+    "biasF": 1.06,
+    "residF": 1.13,
     "n": 21
    },
    "low": {
@@ -471,8 +471,8 @@
   },
   "WSSS": {
    "high": {
-    "biasF": 1.37,
-    "residF": 2.04,
+    "biasF": 1.57,
+    "residF": 1.36,
     "n": 21
    },
    "low": {
@@ -483,8 +483,8 @@
   },
   "ZBAA": {
    "high": {
-    "biasF": -0.48,
-    "residF": 4.08,
+    "biasF": 0.14,
+    "residF": 1.28,
     "n": 21
    },
    "low": {
@@ -495,8 +495,8 @@
   },
   "ZGGG": {
    "high": {
-    "biasF": 2.97,
-    "residF": 2.77,
+    "biasF": 3.38,
+    "residF": 1.53,
     "n": 21
    },
    "low": {
@@ -508,73 +508,73 @@
   "ZGSZ": {
    "high": {
     "biasF": -0.81,
-    "residF": 0.96,
-    "n": 20
+    "residF": 0.94,
+    "n": 21
    },
    "low": {
-    "biasF": 1.03,
-    "residF": 1.64,
-    "n": 20
+    "biasF": 0.94,
+    "residF": 1.7,
+    "n": 21
    }
   },
   "ZHHH": {
    "high": {
-    "biasF": -0.56,
-    "residF": 1.73,
-    "n": 20
+    "biasF": -0.54,
+    "residF": 1.7,
+    "n": 21
    },
    "low": {
-    "biasF": -0.6,
-    "residF": 1.5,
-    "n": 20
+    "biasF": -0.57,
+    "residF": 1.48,
+    "n": 21
    }
   },
   "ZSPD": {
    "high": {
-    "biasF": 1.29,
+    "biasF": 1.3,
     "residF": 1.21,
     "n": 21
    },
    "low": {
-    "biasF": 0.06,
-    "residF": 1.4,
+    "biasF": -0.07,
+    "residF": 1.55,
     "n": 21
    }
   },
   "ZSQD": {
    "high": {
-    "biasF": -0.03,
-    "residF": 0.85,
-    "n": 20
+    "biasF": -0.01,
+    "residF": 0.83,
+    "n": 21
    },
    "low": {
-    "biasF": -0.8,
-    "residF": 1.4,
-    "n": 20
+    "biasF": -0.87,
+    "residF": 1.41,
+    "n": 21
    }
   },
   "ZUCK": {
    "high": {
-    "biasF": -0.26,
-    "residF": 1.75,
-    "n": 20
+    "biasF": -0.2,
+    "residF": 1.74,
+    "n": 21
    },
    "low": {
     "biasF": 0.75,
-    "residF": 1.08,
-    "n": 20
+    "residF": 1.05,
+    "n": 21
    }
   },
   "ZUUU": {
    "high": {
-    "biasF": 1.09,
-    "residF": 2.41,
-    "n": 20
+    "biasF": 1.1,
+    "residF": 2.35,
+    "n": 21
    },
    "low": {
-    "biasF": 0.61,
-    "residF": 1.15,
-    "n": 20
+    "biasF": 0.56,
+    "residF": 1.16,
+    "n": 21
    }
   }
  }
